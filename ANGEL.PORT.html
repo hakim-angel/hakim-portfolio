@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hakim Angel Peter - Software Developer</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0a0a0a;
+      overflow-x: hidden;
+    }
+    
+    .gradient-bg {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+    
+    .glass-effect {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .nav-link {
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #667eea, #764ba2);
+      transition: width 0.3s ease;
+    }
+    
+    .nav-link:hover::after {
+      width: 100%;
+    }
+    
+    .project-card {
+      background: linear-gradient(145deg, #1a1a1a, #2a2a2a);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+      transition: left 0.5s;
+    }
+    
+    .project-card:hover::before {
+      left: 100%;
+    }
+    
+    .project-card:hover {
+      transform: translateY(-20px) rotateX(5deg);
+      box-shadow: 0 30px 60px rgba(102, 126, 234, 0.3);
+      border-color: rgba(102, 126, 234, 0.5);
+    }
+    
+    .skill-tag {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    
+    .skill-tag:hover {
+      transform: scale(1.1) rotateZ(5deg);
+      box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+    }
+    
+    .fade-in {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+    
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .hero-text {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .floating {
+      animation: floating 6s ease-in-out infinite;
+    }
+    
+    @keyframes floating {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+    
+    .pulse-ring {
+      animation: pulse-ring 2s cubic-bezier(0.455, 0.03, 0.515, 0.955) infinite;
+    }
+    
+    @keyframes pulse-ring {
+      0% {
+        transform: scale(0.8);
+        opacity: 1;
+      }
+      80%, 100% {
+        transform: scale(1.2);
+        opacity: 0;
+      }
+    }
+    
+    .contact-form {
+      background: linear-gradient(145deg, #1a1a1a, #2a2a2a);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .form-input {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.3s ease;
+    }
+    
+    .form-input:focus {
+      border-color: #667eea;
+      box-shadow: 0 0 20px rgba(102, 126, 234, 0.3);
+      background: rgba(255, 255, 255, 0.1);
+    }
+    
+    .cta-button {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+    
+    .cta-button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s;
+    }
+    
+    .cta-button:hover::before {
+      left: 100%;
+    }
+    
+    .cta-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
+    }
+    
+    #particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+    
+    .section-title {
+      position: relative;
+      display: inline-block;
+    }
+    
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 4px;
+      background: linear-gradient(90deg, #667eea, #4ba29f);
+      border-radius: 2px;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="particles"></canvas>
+  
+  <!-- Navigation -->
+  <nav class="fixed top-0 w-full glass-effect z-50 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="flex justify-between items-center py-4">
+        <div class="text-2xl font-bold text-white">HAP</div>
+        <ul class="hidden md:flex space-x-8">
+          <li><a href="#home" class="nav-link text-white hover:text-purple-300 transition duration-300 font-medium">Home</a></li>
+          <li><a href="#about" class="nav-link text-white hover:text-purple-300 transition duration-300 font-medium">About</a></li>
+          <li><a href="#skills" class="nav-link text-white hover:text-purple-300 transition duration-300 font-medium">Skills</a></li>
+          <li><a href="#projects" class="nav-link text-white hover:text-purple-300 transition duration-300 font-medium">Projects</a></li>
+          <li><a href="#contact" class="nav-link text-white hover:text-purple-300 transition duration-300 font-medium">Contact</a></li>
+        </ul>
+        <button class="md:hidden text-white">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="home" class="min-h-screen flex items-center justify-center px-6 relative">
+    <div class="text-center fade-in">
+      <div class="relative mb-8">
+        <div class="pulse-ring absolute inset-0 rounded-full border-4 border-purple-400"></div>
+        <img src="C:\Users\amum4\OneDrive\Desktop\Portifolio\MRS.CATT2.jpg" 
+             alt="Hakim Angel Peter" 
+             class="floating w-48 h-48 md:w-56 md:h-56 rounded-full mx-auto object-cover border-4 border-purple-400 shadow-2xl relative z-10">
+      </div>
+      <h1 class="hero-text text-6xl md:text-8xl font-extrabold mb-6 tracking-tight">
+        Hakim Angel Peter
+      </h1>
+      <p class="text-xl md:text-2xl text-gray-300 mb-4 font-light">Software Developer</p>
+      <p class="text-lg text-gray-400 mb-8 max-w-2xl mx-auto leading-relaxed">
+        Crafting innovative digital experiences with cutting-edge technology and creative problem-solving
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="#projects" class="cta-button text-white px-8 py-4 rounded-full font-semibold transition duration-300 inline-block">
+          View My Work
+        </a>
+        <a href="#contact" class="border-2 border-purple-400 text-purple-400 hover:bg-purple-400 hover:text-white px-8 py-4 rounded-full font-semibold transition duration-300 inline-block">
+          Get In Touch
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="py-20 px-6">
+    <div class="max-w-4xl mx-auto text-center fade-in">
+      <h2 class="section-title text-5xl font-bold text-white mb-12">About Me</h2>
+      <div class="glass-effect rounded-3xl p-8 md:p-12">
+        <p class="text-gray-300 text-lg leading-relaxed mb-6">
+          I'm a passionate software developer with a keen eye for detail and a love for creating solutions that make a difference. 
+          With expertise in modern web technologies, I transform ideas into powerful, scalable applications.
+        </p>
+        <p class="text-gray-300 text-lg leading-relaxed">
+          When I'm not coding, you can find me exploring new technologies, contributing to open-source projects, 
+          or sharing knowledge with the developer community.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills Section -->
+  <section id="skills" class="py-20 px-6">
+    <div class="max-w-7xl mx-auto text-center fade-in">
+      <h2 class="section-title text-5xl font-bold text-white mb-12">Skills & Technologies</h2>
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-6">
+        <div class="skill-tag text-white px-6 py-4 rounded-2xl font-semibold text-center">
+          <div class="text-3xl mb-2">🐍</div>
+          <div>Python</div>
+        </div>
+        <div class="skill-tag text-white px-6 py-4 rounded-2xl font-semibold text-center">
+          <div class="text-3xl mb-2">⚡</div>
+          <div>JavaScript</div>
+        </div>
+        <div class="skill-tag text-white px-6 py-4 rounded-2xl font-semibold text-center">
+          <div class="text-3xl mb-2">⚛️</div>
+          <div>React</div>
+        </div>
+        <div class="skill-tag text-white px-6 py-4 rounded-2xl font-semibold text-center">
+          <div class="text-3xl mb-2">🟢</div>
+          <div>Node.js</div>
+        </div>
+        <div class="skill-tag text-white px-6 py-4 rounded-2xl font-semibold text-center">
+          <div class="text-3xl mb-2">🗄️</div>
+          <div>SQL</div>
+        </div>
+        <div class="skill-tag text-white px-6 py-4 rounded-2xl font-semibold text-center">
+          <div class="text-3xl mb-2">🔧</div>
+          <div>Git</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section id="projects" class="py-20 px-6">
+    <div class="max-w-7xl mx-auto fade-in">
+      <h2 class="section-title text-5xl font-bold text-white mb-12 text-center">Featured Projects</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="project-card rounded-3xl p-8 group">
+          <div class="text-4xl mb-4">📋</div>
+          <h3 class="text-2xl font-bold text-white mb-4 group-hover:text-purple-300 transition duration-300">
+            Task Manager Pro
+          </h3>
+          <p class="text-gray-300 mb-6 leading-relaxed">
+            A sophisticated task management platform with real-time collaboration, advanced analytics, and intuitive user experience. Built with React and Node.js.
+          </p>
+          <div class="flex flex-wrap gap-2 mb-6">
+            <span class="bg-purple-500/20 text-purple-300 px-3 py-1 rounded-full text-sm">React</span>
+            <span class="bg-purple-500/20 text-purple-300 px-3 py-1 rounded-full text-sm">Node.js</span>
+            <span class="bg-purple-500/20 text-purple-300 px-3 py-1 rounded-full text-sm">MongoDB</span>
+          </div>
+          <div class="flex gap-4">
+            <a href="#" class="text-purple-400 hover:text-purple-300 font-semibold transition duration-300">Live Demo</a>
+            <a href="#" class="text-purple-400 hover:text-purple-300 font-semibold transition duration-300">GitHub</a>
+          </div>
+        </div>
+
+        <div class="project-card rounded-3xl p-8 group">
+          <div class="text-4xl mb-4">🛒</div>
+          <h3 class="text-2xl font-bold text-white mb-4 group-hover:text-purple-300 transition duration-300">
+            E-Commerce Hub
+          </h3>
+          <p class="text-gray-300 mb-6 leading-relaxed">
+            Full-stack e-commerce solution with secure payments, inventory management, and admin dashboard. Powered by Django and PostgreSQL.
+          </p>
+          <div class="flex flex-wrap gap-2 mb-6">
+            <span class="bg-purple-500/20 text-purple-300 px-3 py-1 rounded-full text-sm">Django</span>
+            <span class="bg-purple-500/20 text-purple-300 px-3 py-1 rounded-full text-sm">PostgreSQL</span>
+            <span class="bg-purple-500/20 text-purple-300 px-3 py-1 rounded-full text-sm">Stripe</span>
+          </div>
+          <div class="flex gap-4">
+            <a href="#" class="text-purple-400 hover:text-purple-300 font-semibold transition duration-300">Live Demo</a>
+            <a href="#" class="text-purple-400 hover:text-purple-300 font-semibold transition duration-300">GitHub</a>
+          </div>
+        </div>
+
+        <div class="project-card rounded-3xl p-8 group">
+          <div class="text-4xl mb-4">💼</div>
+          <h3 class="text-2xl font-bold text-white mb-4 group-hover:text-purple-300 transition duration-300">
+            Portfolio Showcase
+          </h3>
+          <p class="text-gray-300 mb-6 leading-relaxed">
+            Modern, responsive portfolio website with stunning animations and interactive elements. Showcases projects and skills beautifully.
+          </p>
+          <div class="flex flex-wrap gap-2 mb-6">
+            <span class="bg-purple-500/20 text-purple-300 px-3 py-1 rounded-full text-sm">HTML5</span>
+            <span class="bg-purple-500/20 text-purple-300 px-3 py-1 rounded-full text-sm">Tailwind</span>
+            <span class="bg-purple-500/20 text-purple-300 px-3 py-1 rounded-full text-sm">JavaScript</span>
+          </div>
+          <div class="flex gap-4">
+            <a href="#" class="text-purple-400 hover:text-purple-300 font-semibold transition duration-300">Live Demo</a>
+            <a href="#" class="text-purple-400 hover:text-purple-300 font-semibold transition duration-300">GitHub</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="py-20 px-6">
+    <div class="max-w-4xl mx-auto fade-in">
+      <h2 class="section-title text-5xl font-bold text-white mb-12 text-center">Let's Connect</h2>
+      <div class="grid md:grid-cols-2 gap-12">
+        <div>
+          <h3 class="text-2xl font-bold text-white mb-6">Get In Touch</h3>
+          <p class="text-gray-300 text-lg mb-8 leading-relaxed">
+            Ready to bring your ideas to life? Let's discuss how we can work together to create something amazing.
+          </p>
+          <div class="space-y-4">
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 bg-purple-500/20 rounded-full flex items-center justify-center">
+                <span class="text-purple-400 text-xl">📧</span>
+              </div>
+              <div>
+                <div class="text-gray-400">Email</div>
+                <a href="mailto:zakariaangelpeterhakim@gmail.com" class="text-white hover:text-purple-300 transition duration-300">
+                  zakariaangelpeterhakim@gmail.com
+                </a>
+              </div>
+            </div>
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 bg-purple-500/20 rounded-full flex items-center justify-center">
+                <span class="text-purple-400 text-xl">💼</span>
+              </div>
+              <div>
+                <div class="text-gray-400">LinkedIn</div>
+                <a href="https://www.linkedin.com/in/heavenly-body-408359321" class="text-white hover:text-purple-300 transition duration-300">
+                  linkedin.com/in/heavenly-body-408359321
+                </a>
+              </div>
+            </div>
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 bg-purple-500/20 rounded-full flex items-center justify-center">
+                <span class="text-purple-400 text-xl">🐙</span>
+              </div>
+              <div>
+                <div class="text-gray-400">GitHub</div>
+                <a href="https://github.com/hakim-angel" class="text-white hover:text-purple-300 transition duration-300">
+                  github.com/hakim-angel
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="contact-form rounded-3xl p-8">
+          <div id="contact-form">
+            <div class="mb-6">
+              <input type="text" id="name" placeholder="Your Name" 
+                     class="form-input w-full px-6 py-4 rounded-xl text-white placeholder-gray-400 focus:outline-none" required>
+            </div>
+            <div class="mb-6">
+              <input type="email" id="email" placeholder="Your Email" 
+                     class="form-input w-full px-6 py-4 rounded-xl text-white placeholder-gray-400 focus:outline-none" required>
+            </div>
+            <div class="mb-6">
+              <textarea id="message" placeholder="Your Message" rows="5" 
+                        class="form-input w-full px-6 py-4 rounded-xl text-white placeholder-gray-400 focus:outline-none resize-none" required></textarea>
+            </div>
+            <button id="submit-btn" class="cta-button text-white px-8 py-4 rounded-xl font-semibold w-full transition duration-300">
+              Send Message
+            </button>
+          </div>
+          <p id="form-status" class="text-center mt-4 hidden"></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-8 px-6 border-t border-gray-800">
+    <div class="max-w-7xl mx-auto text-center">
+      <p class="text-gray-400">© 2024 Hakim Angel Peter</p>
+    </div>
+  </footer>
+
+  <script>
+    // Initialize EmailJS with your public key
+    emailjs.init("YOUR_PUBLIC_KEY_HERE"); // Replace with your EmailJS public key
+
+    // Smooth scrolling for nav links
+    document.querySelectorAll('.nav-link').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+
+    // Fade-in animation on scroll
+    const fadeElements = document.querySelectorAll('.fade-in');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+    fadeElements.forEach(el => observer.observe(el));
+
+    // Particle background animation
+    const canvas = document.getElementById('particles');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const particles = [];
+    const particleCount = 100;
+
+    for (let i = 0; i < particleCount; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        size: Math.random() * 2 + 1,
+        speedX: Math.random() * 3 - 1.5,
+        speedY: Math.random() * 3 - 1.5,
+        opacity: Math.random() * 0.5 + 0.2
+      });
+    }
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      particles.forEach(particle => {
+        ctx.beginPath();
+        ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(102, 126, 234, ${particle.opacity})`;
+        ctx.fill();
+        
+        particle.x += particle.speedX;
+        particle.y += particle.speedY;
+        
+        if (particle.x > canvas.width) particle.x = 0;
+        if (particle.x < 0) particle.x = canvas.width;
+        if (particle.y > canvas.height) particle.y = 0;
+        if (particle.y < 0) particle.y = canvas.height;
+        
+        particle.opacity += (Math.random() - 0.5) * 0.02;
+        particle.opacity = Math.max(0.1, Math.min(0.8, particle.opacity));
+      });
+      
+      requestAnimationFrame(animateParticles);
+    }
+    animateParticles();
+
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+
+    // Contact form submission
+    document.getElementById('submit-btn').addEventListener('click', function(e) {
+      e.preventDefault();
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const message = document.getElementById('message').value;
+      const status = document.getElementById('form-status');
+
+      if (name && email && message) {
+        emailjs.send("YOUR_SERVICE_ID_HERE", "YOUR_TEMPLATE_ID_HERE", {
+          from_name: name,
+          from_email: email,
+          message: message,
+          to_email: "zakariaangelpeterhakim@gmail.com"
+        }).then(
+          () => {
+            status.classList.remove('hidden', 'text-red-400');
+            status.classList.add('text-green-400');
+            status.textContent = 'Message sent successfully!';
+            document.getElementById('contact-form').reset();
+            setTimeout(() => {
+              status.classList.add('hidden');
+            }, 5000);
+          },
+          (error) => {
+            status.classList.remove('hidden', 'text-green-400');
+            status.classList.add('text-red-400');
+            status.textContent = 'Failed to send message. Please try again.';
+            console.error('EmailJS error:', error);
+            setTimeout(() => {
+              status.classList.add('hidden');
+            }, 5000);
+          }
+        );
+      } else {
+        status.classList.remove('hidden', 'text-green-400');
+        status.classList.add('text-red-400');
+        status.textContent = 'Please fill out all fields.';
+        setTimeout(() => {
+          status.classList.add('hidden');
+        }, 5000);
+      }
+    });
+
+    // Navbar background on scroll
+    const navbar = document.querySelector('nav');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 100) {
+        navbar.style.background = 'rgba(10, 10, 10, 0.9)';
+      } else {
+        navbar.style.background = 'rgba(255, 255, 255, 0.1)';
+      }
+    });
+  </script>
+</body>
+</html>
